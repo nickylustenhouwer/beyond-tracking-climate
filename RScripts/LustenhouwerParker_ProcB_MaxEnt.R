@@ -15,7 +15,7 @@
 #### ================ Load data ========================================
 
 ## Load climate and occurrence data from starting script 
-source("Data/LustenhouwerParker_ProcB_start.R")
+source("RScripts/LustenhouwerParker_ProcB_start.R")
 head(records.past)
 head(records.present) 
 
