@@ -5,7 +5,7 @@
 
 # Script 4: MaxEnt analysis
 
-# Last edit: August 6, 2021
+# Last edit: August 10, 2021
 
 # Code adapted from:
   # Di Cola, V. et al. 2017. ecospat: an R package to support spatial analyses and modeling of species niches and distributions. - Ecography 40: 774–787
