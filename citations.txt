@@ -1,0 +1,37 @@
+DATA REFERENCES
+Brandes D. 2001 Urban flora of Sousse (Tunisia). Braunschweig: Botanisches Institut und Botanischer Garten der TU Braunschweig. (doi:10.24355/dbbs.084-200511080100-51)
+BSBI. 2020 Botanical Society of Britain and Ireland Distribution Database. Records for  Dittrichia graveolens , accessed on 5 June 2020. See https://database.bsbi.org/.
+Calflora. 2021 Calflora: Information on California plants for education, research and conservation [web application]. Berkeley, CA: The Calflora Database [a non-profit organization]. See https://www.calflora.org/.
+Caneva G, Cutini M, Pacini A, Vinci M. 2002 Analysis of the Colosseum’s floristic changes during the last four centuries. Plant Biosyst. - Int. J. Deal. Asp. Plant Biol. 136, 291–311. (doi:10.1080/11263500212331351199)
+De Stefani. 1973 Herbarium Mediterraneum Panormitanum (PAL). Specimen of Inula graveolens (L.) Desf. 
+FloraWeb. 2013 Dittrichia graveolens in FloraWeb: Daten und Informationen zu Wildpflanzen und zur Vegetation Deutschlands. 
+Frajman B, Kaligarič M. 2009 Dittrichia graveolens, a new alien species of the Slovenian flora. Hladnikia , 35–43.
+GBIF.org. 2020 GBIF Occurrence Download for Dittrichia graveolens (L.) Greuter. (doi: 10.15468/dl.s0qcs0)
+Georgiadou E, Merxmüller HW, Rechinger KH, Wagenitz G. 1980 Compositae IV, Inuleae. In Flora Iranica, pp. 106–107. Graz: Akad. Dr.- u. Verl.-Anst. 
+Ghahremaninejad F, Joharchi M, Vitek E. 2012 New plant records for Khorassan province, Iran, V, with complementary notes to its flora. Ann. Naturhistorischen Mus. Wien Ser. B Für Bot. UndZoologie 114, 59–94.
+iNaturalist. 2020 Records for Dittrichia graveolens. See https://www.inaturalist.org.
+Info Flora. 2020 Dittrichia graveolens in: Info Flora, the National Data and Information Center on the Swiss Flora. See www.infoflora.ch.
+Kaplan Z et al. 2018 Distributions of vascular plants in the Czech Republic. Part 7. Preslia 90, 425–531. (doi:10.23855/preslia.2018.425)
+Király G, Jun PE, Dítě D. 2014 Two thermophilic alien species new to the flora of Slovakia. Thaiszia 24, 125–134.
+Kocián P. 2015 Dittrichia graveolens (L.) Greuter – a new alien species in Poland. Acta Musei Silesiae Sci. Nat. 64. (doi:10.1515/cszma-2015-0027)
+Mouterde P. 1983 Nouvelle flore du Liban et de la Syrie. Beyrouth: Dar el-Machreq Sarl. 
+Nikolić T. 2015 Flora Croatica Database. Faculty of Science, University of Zagreb. See http://hirc.botanic.hr/fcd.
+Open Herbarium. 2020 Dittrichia graveolens in: Open Herbarium, an open vascular plant herbarium network. See https://openherbarium.org/.
+OpenBioMaps. 2021 Vascular plants of Hungary online database. See http://floraatlasz.uni-sopron.hu.
+Pagitz K, Lechner-Pagitz C. 2015 Neues zur Neophytenflora Nord- und Osttirols (Österreich). Neilreichia 7, 29–44. (doi:10.5281/zenodo.293054)
+Pandža M. 1998 Flora of the island of Murter (central Adriatic). Acta Bot. Croat. 57, 99–122.
+Pliszko A, Kocián P. 2017 Further notes on the distribution of Dittrichia graveolens (Asteraceae) in Poland. Acta Musei Silesiae Sci. Nat. 66, 259–262. (doi:10.1515/cszma-2017-0027)
+Pottier-Alapetite G. 1979 Flore de la Tunisie : Angiospermes-dicotyledones. Tunis: Ministère de l’Enseignement Supérieur et de la Recherche Scientifique et le Ministère de l’Agriculture. 
+Šajna N, Adamlje K, Kaligarič M. 2017 Dittrichia graveolens – How does soil salinity determine distribution, morphology, and reproductive potential? Ann. Ser. Hist. Nat. (doi:10.19233/ASHN.2017.02)
+Schmidt D. 2019 Vonalas létesítmények mentén terjedő növények Vas megyében. Vasi Szle. 73, 160–174.
+Shallari S, Schwartza C, Haskob A, MorelaT JL. 1998 Heavy metals in soils and plants of serpentine and industrial sites of Albania. Sci. Total Environ. 209, 133–142. (doi:10.1016/S0048-9697(98)80104-6)
+Stöhr O, Pilsl P, Staudinger M, Kleesadl G, Essl F, Lugmair A, Wittmann H. 2012 Beiträge zur Flora von Österreich, IV. Stapfia 97, 53–136.
+Szatmari P-M, Hurdu B-I. 2021 Dittrichia graveolens (Asteraceae) – a new alien plant species for Romania. Contrib. Bot. 55, 49–58. (doi:10.24193/Contrib.Bot.55.3)
+Takács A et al. 2016 Taxonomical and chorological notes 3 (28–37). Stud. Bot. Hung. 47. (doi:10.17110/StudBot.2016.47.2.345)
+Tavsanoglu Ç, Gürkan B. 2009 Post-fire regeneration of a Pinus brutia (Pinaceae) forest in Marmaris National Park, Turkey. Int. J. Bot. 5, 107–111. (doi:10.3923/ijb.2009.107.111)
+Tohmé G, Tohmé H. 2015 Les plantes de la Côte Libanaise. Leban. Sci. J. 16, 119–138.
+Vladimirov V, Aybeke M, Tan K. 2018 New floristic records in the Balkans: 37. Phytol. Balc. 24, 397–461.
+Vladimirov V, Dane F, Stevanović V, Tan K. 2010 New floristic records in the Balkans: 14. Phytol. Balc. 16, 415–455.
+Vladimirov V, Tan K. 2016 New floristic records in the Balkans: 31. Phytol. Balc. 22, 429–467.
+Zając A, Zając M, editors. 2019 Distribution atlas of vascular plants in Poland: appendix. Institute of Botany, Jagiellonian University. 
+Zlatković B, Bogosavljević S. 2014 Report on the new floristic data from Serbia. Biol. Nyssana 5, 123–129.
