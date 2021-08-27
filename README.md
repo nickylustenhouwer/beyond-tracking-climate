@@ -8,7 +8,7 @@ Contents:
 - this README
 
 - beyond-tracking-climate.Rproj
-  -  R project file. Open this file in R studio to run all R scripts with the correct relative file paths.
+  -  R project file. Download the entire repository and open this file in R studio to run all R scripts with the correct relative file paths.
 
 - citations.txt
   - Reference list for all species occurrence data used in this project. 
