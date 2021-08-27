@@ -1,15 +1,14 @@
 # R code for:
 # Beyond tracking climate: niche evolution during native range expansion and its implications for novel invasions
 # N. Lustenhouwer & I.M. Parker
-# Submitted to Proceedings B
 
 # Script 2: Climate variable selection
 # This code is not needed to run script 3 and 4; it serves to illustrate how the climate variables were selected.
 
-# Last edit: July 20, 2021
+# Last edit: August 27, 2021
 
 ## Run Script 1 as source code
-source("Rscripts/LustenhouwerParker_ProcB_start.R")
+source("Rscripts/LustenhouwerParker_start.R")
 
 ## Initial selection based on biology and redundancy ##
 

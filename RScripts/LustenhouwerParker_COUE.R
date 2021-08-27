@@ -1,18 +1,17 @@
 # R code for:
 # Beyond tracking climate: niche evolution during native range expansion and its implications for novel invasions
 # N. Lustenhouwer & I.M. Parker
-# Submitted to Proceedings B
 
 # Script 3: COUE analysis
 
-# Last edit: August 6, 2021
+# Last edit: August 27, 2021
 
 # Code adapted from:
   # Di Cola, V. et al. 2017. ecospat: an R package to support spatial analyses and modeling of species niches and distributions. - Ecography 40: 774–787
 
 
 ## Load climate and occurrence data from starting script
-source("Rscripts/LustenhouwerParker_ProcB_start.R")
+source("Rscripts/LustenhouwerParker_start.R")
 
 ## Parameter settings used for all analyses
 bioclimsub <- predictors.numeric + 2 # column numbers of the environmental predictors (columns 1 and 2 are x and y coordinates)

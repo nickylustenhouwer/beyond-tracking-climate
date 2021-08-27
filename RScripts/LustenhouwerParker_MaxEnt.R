@@ -1,11 +1,10 @@
 # R code for:
 # Beyond tracking climate: niche evolution during native range expansion and its implications for novel invasions
 # N. Lustenhouwer & I.M. Parker
-# Submitted to Proceedings B
 
 # Script 4: MaxEnt analysis
 
-# Last edit: August 10, 2021
+# Last edit: August 27, 2021
 
 # Code adapted from:
   # Di Cola, V. et al. 2017. ecospat: an R package to support spatial analyses and modeling of species niches and distributions. - Ecography 40: 774–787
@@ -15,7 +14,7 @@
 #### ================ Load data ========================================
 
 ## Load climate and occurrence data from starting script 
-source("RScripts/LustenhouwerParker_ProcB_start.R")
+source("RScripts/LustenhouwerParker_start.R")
 head(records.past)
 head(records.present) 
 
