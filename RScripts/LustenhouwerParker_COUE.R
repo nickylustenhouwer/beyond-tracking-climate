@@ -225,7 +225,7 @@ ecospat.plot.contrib(contrib=pca.env.pastVpresent$co, eigen=pca.env.pastVpresent
 
 ## Figure 1 ##
 
-#pdf("Results/HSMFig1newH.pdf", width=8.3, height=4.7)
+#pdf("Figure1.pdf", width=8.3, height=4.7)
 layout(matrix(c(1,1,1,1,2,3,2,4), nrow=2, ncol=4))
 myplot(grid.clim.past.pastVpresent, grid.clim.present.pastVpresent, quant=cutoff, 
        interest=1, # interest=1 plots native, interest=2 plots invasive density
@@ -479,7 +479,7 @@ ecospat.plot.contrib(contrib=pca.env.presentVau$co, eigen=pca.env.presentVau$eig
 ## Panel a-c
 extAU <- extent(110,155,-45,-10) # spatial extent of Australia
 
-#pdf("Results/HSMFig3top_new.pdf", width=8, height=2.8)
+#pdf("Figure3_top.pdf", width=8, height=2.8)
 par(mfrow=c(1,3), mar=c(4, 4, 2, 1))
 
 myplot(grid.clim.past.pastVau, grid.clim.present.pastVau, quant=cutoff, 
@@ -492,17 +492,19 @@ myplot(grid.clim.past.presentVau, grid.clim.present.presentVau, quant=cutoff,
        title= "", name.axis1="PC1", name.axis2="PC2",
        colz1 = "#eab98b", colz2 = "#9adef9", colinter = "#5f1988", # purple/orange/blue
        colZ1 = "#e29f60", colZ2 = "#52c6f5")
+# Run LustenhouwerParker_MAxEnt.R first for the third panel, or skip these lines:
 plot(crop(AUmap.difference.minPres, extAU), 
      col=c("grey30","pink","orange","grey90", "green",
            "red","grey50","yellow","purple","grey70"), main="", legend=F)
   points(y ~ x, Australia.records,cex=.4, pch=16) # black outline for points
   lines(Australia, lwd=1.5)
+# end of third panel
 dev.off()
 
 ## Panel d-f
 USstates <- raster::getData('GADM', country='USA', level=1) 
 
-#pdf("Results/HSMFig3bottom_new.pdf", width=8, height=2.8)
+#pdf("Figure3_bottom.pdf", width=8, height=2.8)
 par(mfrow=c(1,3), mar=c(4, 4, 2, 1))
 
 myplot(grid.clim.past.pastVca, grid.clim.present.pastVca, quant=cutoff, 
@@ -515,10 +517,12 @@ myplot(grid.clim.past.presentVca, grid.clim.present.presentVca, quant=cutoff,
        title= "", name.axis1="PC1", name.axis2="PC2",
        colz1 = "#eab98b", colz2 = "#9adef9", colinter = "#5f1988", # purple/orange/green
        colZ1 = "#e29f60", colZ2 = "#52c6f5")
+# Run LustenhouwerParker_MAxEnt.R first for the third panel, or skip these lines:
 plot(CAmap.difference.minPres, col=c("grey90","grey50","grey70"), 
      legend=F, main="")
   points(y ~ x, calflora.records, pch=16)
   lines(USstates)
+# end of third panel
 dev.off()
 
 #### ================ TABLE 2 ===================

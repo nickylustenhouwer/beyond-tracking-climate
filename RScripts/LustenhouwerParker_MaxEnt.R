@@ -26,7 +26,7 @@ targetBg.raw.present <- read.csv("Data/targetBgPresent.csv", header=T)
 
 ## Plot all presences and bg points (Figure S1)
 
-#png("Results/LustenhouwerParker_FigS1.png", width=5, height=5, unit="in", res=300) # run to save the figure
+#png("FigureS1.png", width=5, height=5, unit="in", res=300) # run to save the figure
 par(mfrow=c(2,1), mar=c(2, 3, 1, 0))
 plot(present.study.region[[1]], col="lightgrey", legend=F, main="")
   #lines(native.range)
@@ -152,7 +152,7 @@ Map.raw.now <- predict(present.study.region[[predictors]], Model.raw.present, ty
 
 ## FIGURE 2 
 
-#pdf("Results/LustenhouwerParker_Fig2.pdf", width=8, height=5.5) # to save the figure as pdf
+#pdf("Figure2.pdf", width=8, height=5.5) # to save the figure as pdf
 par(mfrow=c(2,2), mar=c(4, 4, 2, 1))
   
 plot(crop(tunedMap.raw.past,extEU), main='', 
@@ -177,7 +177,7 @@ dev.off()
 # Edits in Inkscape: scale bar moved to the bottom (horizontal), panel labels added (a)-(d) 
 
 ## FIGURE S2: entire study area 
-#pdf("Results/LustenhouwerParker_FigS2.pdf", width=8, height=5.5)
+#pdf("FigureS2.pdf", width=8, height=5.5)
 par(mfrow=c(2,2), mar=c(4, 4, 2, 1))
 
 plot(tunedMap.raw.past, main='',
