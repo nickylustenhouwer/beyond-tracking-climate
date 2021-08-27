@@ -52,7 +52,7 @@ Contents:
 
 - Species occurrence data for <i>Dittrichia graveolens</i>
   - CSV files containing a combination of occurrence and climate data.
-  - Data sources: citations.txt (main folder) 
+  - Data sources: citations.txt (home directory) 
   - Variables:
     - x: decimal longitude
     - y: decimal latitude
