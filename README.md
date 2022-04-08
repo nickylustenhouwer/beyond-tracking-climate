@@ -1,5 +1,5 @@
 # beyond-tracking-climate
-Data and R code for Lustenhouwer &amp; Parker, "Beyond tracking climate: niche evolution during native range expansion and its implications for novel invasions"
+Data and R code for Lustenhouwer &amp; Parker, "Beyond tracking climate: niche shifts during native range expansion and their implications for novel invasions"
 
 A preprint of the manuscript and supplementary material can be found on bioRxiv here: https://doi.org/10.1101/2021.06.09.447486
 

@@ -2,9 +2,9 @@
 # Beyond tracking climate: niche evolution during native range expansion and its implications for novel invasions
 # N. Lustenhouwer & I.M. Parker
 
-# Script 1: Load climate and species occurrence data
+# Script 1: Load climate and species occurrence data 
 
-# Last edit: August 27, 2021
+# Last edit: April 8, 2022
 
 # Code adapted from:
   # Di Cola, V. et al. 2017. ecospat: an R package to support spatial analyses and modeling of species niches and distributions. - Ecography 40: 774–787
@@ -58,6 +58,7 @@ California <- readOGR("Data/California.shp") # outline of California
   
 # spatial extent for plotting
 extEU <- extent(-30,50,28,60)
+extAU <- extent(110,155,-45,-10) # spatial extent of Australia
   
 #### =========== Climate data ============== ####
 
@@ -101,7 +102,7 @@ present.bioclim.AU <- stack("Data/PresentClimateAU.tif") # Australia
 past.occ.original <- read.csv("Data/PastClimate_NativeRecords.csv", header=T) # Past climate data with occurrence records in the historic native range
 records.past <- subset(past.occ.original, species_occ==1) # subset rows with presences only
   names(records.past)[1:2] <- c("longitude", "latitude")
-  nrow(records.past) # 399
+  nrow(records.past) # 400
 
 plot(past.study.region[[1]], main="past climate with original native range occurrences (bio1)")
   points(latitude ~ longitude, records.past, pch=21, bg=alpha('mediumseagreen', 0.5), cex=.2) 
@@ -124,7 +125,7 @@ plot(present.bioclim.CA[[1]], col="lightgrey")
   points(y ~ x, calflora.records, pch=16, cex=1)
 
 ## Australia ##
-Australia.occ <- read.csv("Data/PresentClimate_AustraliaRecords.csv", header=T)
+Australia.occ <- read.csv("Data/PresentClimate_AustraliaRecords.csv", header=T) 
   str(Australia.occ)  
 Australia.records <- subset(Australia.occ, species_occ==1)
   str(Australia.records)

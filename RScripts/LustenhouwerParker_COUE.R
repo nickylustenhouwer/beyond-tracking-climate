@@ -4,7 +4,7 @@
 
 # Script 3: COUE analysis
 
-# Last edit: August 27, 2021
+# Last edit: April 8, 2022
 
 # Code adapted from:
   # Di Cola, V. et al. 2017. ecospat: an R package to support spatial analyses and modeling of species niches and distributions. - Ecography 40: 774–787
@@ -128,11 +128,14 @@ myplot <- function (z1, z2, quant, title = "", name.axis1 = "Axis 1", name.axis2
 
 
 ## edits to ecospat.shift.centroids {ecospat} ##
+# added points for the centroids of the past and present niche
 # changed the linetype and selected individuals colors for the climate and species arrow
 
 my.centroid <- function (sp1, sp2, clim1, clim2, col.sp = "red", col.clim = "black") # added 'col.sp' and 'col.clim' instead of one 'col' argument
 {
   if (ncol(as.matrix(sp1)) == 2) {
+    points(median(sp1[, 1]), median(sp1[, 2]), cex=2, pch=16, col="#e29f60") # add centroid of past niche
+    points(median(sp2[, 1]), median(sp2[, 2]), cex=2, pch=16, col="#52C6F5") # add centroid of present niche
     arrows(median(sp1[, 1]), median(sp1[, 2]), median(sp2[, 
         1]), median(sp2[, 2]), col = col.sp, lwd = 2, length = 0.1) # col = col.sp
     arrows(median(clim1[, 1]), median(clim1[, 2]), median(clim2[, 
@@ -225,7 +228,7 @@ ecospat.plot.contrib(contrib=pca.env.pastVpresent$co, eigen=pca.env.pastVpresent
 
 ## Figure 1 ##
 
-#pdf("Figure1.pdf", width=8.3, height=4.7)
+pdf("Results/Figure1.pdf", width=8.3, height=4.7)
 layout(matrix(c(1,1,1,1,2,3,2,4), nrow=2, ncol=4))
 myplot(grid.clim.past.pastVpresent, grid.clim.present.pastVpresent, quant=cutoff, 
        interest=1, # interest=1 plots native, interest=2 plots invasive density
@@ -239,7 +242,8 @@ ecospat.plot.overlap.test(eq.test.pastVpresent, "D", "Equivalency")
 ecospat.plot.overlap.test(sim.test.pastVpresent, "D", "Similarity")
 dev.off()
 
-# Edits in inkscape: increased label sizes on PCA plot, added panel labels and axis labels, removed unnecessary text (panel headers and p.values).
+# Edits in inkscape: increased label sizes on PCA plot, added panel labels and axis labels, removed unnecessary text (panel headers and p.values), 
+  # adjusted font size and figure width to journal requirements.
 
 
 #### ================ PAST NATIVE RANGE CLIMATE AND OCCURRENCES TO CALIFORNIA ===================
@@ -477,7 +481,6 @@ ecospat.plot.contrib(contrib=pca.env.presentVau$co, eigen=pca.env.presentVau$eig
 #### ================ FIGURE 3 ================
 
 ## Panel a-c
-extAU <- extent(110,155,-45,-10) # spatial extent of Australia
 
 #pdf("Figure3_top.pdf", width=8, height=2.8)
 par(mfrow=c(1,3), mar=c(4, 4, 2, 1))
@@ -492,10 +495,10 @@ myplot(grid.clim.past.presentVau, grid.clim.present.presentVau, quant=cutoff,
        title= "", name.axis1="PC1", name.axis2="PC2",
        colz1 = "#eab98b", colz2 = "#9adef9", colinter = "#5f1988", # purple/orange/blue
        colZ1 = "#e29f60", colZ2 = "#52c6f5")
-# Run LustenhouwerParker_MAxEnt.R first for the third panel, or skip these lines:
+# Run LustenhouwerParker_MaxEnt.R first for the third panel, or skip these lines:
 plot(crop(AUmap.difference.minPres, extAU), 
-     col=c("grey30","pink","orange","grey90", "green",
-           "red","grey50","yellow","purple","grey70"), main="", legend=F)
+     col=c("grey95", "#7bb1c7", "#cceefc", "#8ac7e0", "#9adef9"), # outside mess, past, neither, both, present
+     legend=F, main="")
   points(y ~ x, Australia.records,cex=.4, pch=16) # black outline for points
   lines(Australia, lwd=1.5)
 # end of third panel
@@ -505,8 +508,41 @@ dev.off()
 USstates <- raster::getData('GADM', country='USA', level=1) 
 
 #pdf("Figure3_bottom.pdf", width=8, height=2.8)
-par(mfrow=c(1,3), mar=c(4, 4, 2, 1))
+    par(mfrow=c(1,3), mar=c(4, 4, 2, 1))
+    
+    myplot(grid.clim.past.pastVca, grid.clim.present.pastVca, quant=cutoff, 
+           interest=1, # interest=1 plots native, interest=2 plots invasive density
+           title= "", name.axis1="PC1", name.axis2="PC2",
+           colz1 = "#eab98b", colz2 = "#9adef9", colinter = "#5f1988", # purple/orange/green        
+           colZ1 = "#e29f60", colZ2 = "#52c6f5")
+    myplot(grid.clim.past.presentVca, grid.clim.present.presentVca, quant=cutoff, 
+           interest=1, # interest=1 plots native, interest=2 plots invasive density
+           title= "", name.axis1="PC1", name.axis2="PC2",
+           colz1 = "#eab98b", colz2 = "#9adef9", colinter = "#5f1988", # purple/orange/green
+           colZ1 = "#e29f60", colZ2 = "#52c6f5")
+    # Run LustenhouwerParker_MaxEnt.R first for the third panel, or skip these lines:
+    plot(CAmap.difference.minPres, 
+         col=c("grey95", "#7bb1c7", "#cceefc", "#8ac7e0", "#9adef9"), # outside mess, past, neither, both, present
+         legend=F, main="")
+      points(y ~ x, calflora.records, pch=16)
+      lines(USstates)
+# end of third panel
+dev.off()
 
+# Save panel a,b,d,e to add to formatted map in QGIS
+#pdf("Results/Figure3abde.pdf", width=4.41, height=4.41)
+par(mfrow=c(2,2), mar=c(3, 3, 1, .5), ps=8, family="sans")
+
+myplot(grid.clim.past.pastVau, grid.clim.present.pastVau, quant=cutoff, 
+       interest=1, # interest=1 plots native, interest=2 plots invasive density
+       title= "", name.axis1="PC1", name.axis2="PC2",
+       colz1 = "#eab98b", colz2 = "#9adef9", colinter = "#5f1988", # purple/orange/blue
+       colZ1 = "#e29f60", colZ2 = "#52c6f5")
+myplot(grid.clim.past.presentVau, grid.clim.present.presentVau, quant=cutoff, 
+       interest=1, # interest=1 plots native, interest=2 plots invasive density
+       title= "", name.axis1="PC1", name.axis2="PC2",
+       colz1 = "#eab98b", colz2 = "#9adef9", colinter = "#5f1988", # purple/orange/blue
+       colZ1 = "#e29f60", colZ2 = "#52c6f5")
 myplot(grid.clim.past.pastVca, grid.clim.present.pastVca, quant=cutoff, 
        interest=1, # interest=1 plots native, interest=2 plots invasive density
        title= "", name.axis1="PC1", name.axis2="PC2",
@@ -517,13 +553,15 @@ myplot(grid.clim.past.presentVca, grid.clim.present.presentVca, quant=cutoff,
        title= "", name.axis1="PC1", name.axis2="PC2",
        colz1 = "#eab98b", colz2 = "#9adef9", colinter = "#5f1988", # purple/orange/green
        colZ1 = "#e29f60", colZ2 = "#52c6f5")
-# Run LustenhouwerParker_MAxEnt.R first for the third panel, or skip these lines:
-plot(CAmap.difference.minPres, col=c("grey90","grey50","grey70"), 
-     legend=F, main="")
-  points(y ~ x, calflora.records, pch=16)
-  lines(USstates)
-# end of third panel
 dev.off()
+
+# save panel c and f for map formatting in QGIS
+writeRaster(crop(AUmap.difference.minPres, extAU), "Results/Australia_minpres.tif", format="GTiff")
+writeRaster(CAmap.difference.minPres, "Results/California_minpres.tif", format="GTiff")
+
+write.csv(Australia.records, "Results/records_Australia.csv", row.names=F)
+write.csv(calflora.records, "Results/records_California.csv", row.names=F)
+
 
 #### ================ TABLE 2 ===================
 

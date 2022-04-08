@@ -4,7 +4,7 @@
 
 # Script 4: MaxEnt analysis
 
-# Last edit: August 27, 2021
+# Last edit: April 8, 2022
 
 # Code adapted from:
   # Di Cola, V. et al. 2017. ecospat: an R package to support spatial analyses and modeling of species niches and distributions. - Ecography 40: 774–787
@@ -38,9 +38,8 @@ dev.off()
   
 plot(crop(present.study.region[[1]], extEU), col="lightgrey", legend=F, main="Presence data, zoomed in to Europe") # zoomed in to Europe
   lines(native.range)
-  points(latitude ~ longitude, records.past, pch=16, cex=.5) # historic native
-  points(latitude ~ longitude, records.present, pch=16, cex=.5) # expanded native range
-  
+  points(latitude ~ longitude, records.present, pch=16, cex=.5, col="white") # expanded native range
+  points(latitude ~ longitude, records.past, pch=16, cex=.5) # historic native range
 
 ## Make training data frame with predictors and vector of 1/0 for presence/background
 trainData.raw.past <- rbind(records.past[ , predictors], targetBg.raw.past[ , predictors])
@@ -70,6 +69,7 @@ tunedModel.raw.past <- maxnet(p=presBg.raw.past, data=trainData.raw.past, f=f, r
 f <- maxnet.formula(p=as.vector(presBg.raw.present), data=trainData.raw.present, classes='lpq')  
 Model.raw.present <- maxnet(p=presBg.raw.present, data=trainData.raw.present, f=f, regmult=0.5)
 
+
 ## Response functions for each predictor (Figure S3 and S4) ##
 
 # Past Model #
@@ -89,7 +89,7 @@ env.past <- env.past[rep(1, 100), ]
 row.names(env.past) <- 1:nrow(env.past)
 head(env.past)
 
-par(mfrow=c(2,3), mar=c(4,4,1,1))
+par(mfrow=c(2,3), mar=c(4,4,1,1), ps=8, family="sans")
   for (pred in predictors) {
   # make copy of data frame
   thisEnv <- env.past
@@ -123,7 +123,7 @@ env.present <- env.present[rep(1, 100), ]
 row.names(env.present) <- 1:nrow(env.present)
 head(env.present)
 
-par(mfrow=c(2,3))
+par(mfrow=c(2,3), mar=c(4,4,1,1), ps=8, family="sans")
 for (pred in predictors) {
   # make copy of data frame
   thisEnv <- env.present
@@ -150,11 +150,11 @@ tunedMap.raw.past <- predict(past.study.region[[predictors]], tunedModel.raw.pas
 tunedMap.raw.present <- predict(present.study.region[[predictors]], tunedModel.raw.past, type='cloglog') # Past Model on present climate
 Map.raw.now <- predict(present.study.region[[predictors]], Model.raw.present, type='cloglog') # Present Model on present climate
 
-## FIGURE 2 
+### FIGURE 2 (note that final map has been reprojected in QGIS)
 
-#pdf("Figure2.pdf", width=8, height=5.5) # to save the figure as pdf
+#pdf("Results/Figure2.pdf", width=6.614173, height=4.55, pointsize=8) # to save the figure as pdf; page width 168mm
 par(mfrow=c(2,2), mar=c(4, 4, 2, 1))
-  
+
 plot(crop(tunedMap.raw.past,extEU), main='', 
      breaks=seq(0,1,.01), col=cal_palette("figmtn", n=100, type="continuous")) # Past Model projected on past climate, occurrences in historic native range
   lines(native.range, col="grey20")
@@ -174,10 +174,8 @@ plot(crop(Map.raw.now,extEU), main="",
   
 dev.off()
 
-# Edits in Inkscape: scale bar moved to the bottom (horizontal), panel labels added (a)-(d) 
-
 ## FIGURE S2: entire study area 
-#pdf("FigureS2.pdf", width=8, height=5.5)
+#pdf("Results/FigureS2.pdf", width=8, height=5.5)
 par(mfrow=c(2,2), mar=c(4, 4, 2, 1))
 
 plot(tunedMap.raw.past, main='',
@@ -199,7 +197,89 @@ points(latitude ~ longitude, records.present, pch=20, cex=.005)
 
 dev.off()
 
-# Edits in Inkscape: scale bar moved to the bottom (horizontal), panel labels added (a)-(d) 
+# Export map elements for map formatting in QGIS
+writeRaster(tunedMap.raw.past, "Results/finalmap_past_past.tif", format="GTiff")
+writeRaster(tunedMap.raw.present, "Results/finalmap_past_present.tif", format="GTiff")
+writeRaster(Map.raw.now, "Results/finalmap_present_present.tif", format="GTiff")
+
+write.csv(records.past, "Results/records_past.csv", row.names=F)
+write.csv(records.present, "Results/records_present.csv", row.names=F)
+write.table(as.character(cal_palette("figmtn", n=100, type="continuous")), "Results/calpalette_figmtn.txt", col.names=F, row.names=F) # colors
+
+
+#### ====================== Thresholded maps (Appendix S7) ======================================
+
+# Past model to past climate
+predPres.pastmodel.past <- extract(tunedMap.raw.past, cbind(records.past$longitude, records.past$latitude))
+predBg.pastmodel.past <- extract(tunedMap.raw.past, cbind(targetBg.raw.past$longitude, targetBg.raw.past$latitude))
+
+# Past model to present climate
+predPres.pastmodel <- extract(tunedMap.raw.present, cbind(records.present$longitude, records.present$latitude))
+predBg.pastmodel <- extract(tunedMap.raw.present, cbind(targetBg.raw.present$longitude, targetBg.raw.present$latitude))
+
+# Present model to past climate (for sensitivity only)
+Map.raw.now.past <- predict(present.study.region[[predictors]], Model.raw.present, type='cloglog') # Present Model on past climate
+predPres.presentmodel.past <- extract(Map.raw.now.past, cbind(records.past$longitude, records.past$latitude))
+predBg.presentmodel.past <- extract(Map.raw.now.past, cbind(targetBg.raw.past$longitude, targetBg.raw.past$latitude))
+
+# Present model to present climate
+predPres.presentmodel <- extract(Map.raw.now, cbind(records.present$longitude, records.present$latitude))
+predBg.presentmodel <- extract(Map.raw.now, cbind(targetBg.raw.present$longitude, targetBg.raw.present$latitude))
+
+# create evaluation object for each model
+eval.pastmodel.past <- evaluate(p=as.vector(predPres.pastmodel.past), a=as.vector(predBg.pastmodel.past), tr=seq(0, 1, by=0.01))
+eval.pastmodel.past
+eval.pastmodel <- evaluate(p=as.vector(predPres.pastmodel), a=as.vector(predBg.pastmodel), tr=seq(0, 1, by=0.01))
+eval.pastmodel
+eval.presentmodel <- evaluate(p=as.vector(predPres.presentmodel), a=as.vector(predBg.presentmodel), tr=seq(0, 1, by=0.01))
+eval.presentmodel
+
+# threshold with maximum across past and present model
+threshold.maxboth <- eval.pastmodel@t[which.max(eval.pastmodel@TPR + eval.pastmodel@TNR + eval.presentmodel@TPR + eval.presentmodel@TNR)]
+threshold.maxboth # 0.37 
+threshold <- threshold.maxboth
+
+threshold.past.past <- tunedMap.raw.past >= threshold # past model in the past  
+threshold.past <- tunedMap.raw.present >= threshold # past model in the present
+threshold.present <- Map.raw.now >= threshold # present threshold
+
+# sensitivity 
+sum(predPres.pastmodel.past >= threshold) / length(predPres.pastmodel.past) # sensitivity of past model in the past
+sum(predPres.pastmodel >= threshold) / length(predPres.pastmodel) # sensitivity of past model in the present
+sum(predPres.presentmodel.past >= threshold) / length(predPres.presentmodel.past) # sensitivity of present model in the past
+sum(predPres.presentmodel >= threshold) / length(predPres.presentmodel) # sensitivity of present model in the present
+
+# plot thresholded maps by themselves
+plot(crop(threshold.past, extEU))
+  lines(native.range)
+  points(latitude ~ longitude, records.past, pch=16, cex=.5) # historic native range (present climate)
+plot(crop(threshold.present, extEU))
+  lines(native.range)
+  points(latitude ~ longitude, records.present, pch=16, cex=.5) # expanded native range (present climate)
+
+# combine thresholded maps
+threshold.past[threshold.past>0] <- -1
+threshold.present[threshold.present>0] <- 2
+threshold.difference <- threshold.past + threshold.present
+# unsuitable habitat has the value 0
+# outcome of adding up the past and present rasters, with suitable habitat in:
+  # neither model:      0 + 0 = 0 
+  # past model only:   -1 + 0 = -1  
+  # both models:       -1 + 2 = 1  
+  # present model only: 0 + 2 = 2  
+
+### FIGURE S5 ###
+#pdf("Results/FigureS5.pdf", width=6.614173, height=4.55, pointsize=8)
+plot(crop(threshold.difference, extEU), 
+     col=cal_palette("figmtn", n=5, type="discrete"))
+ lines(study.region)
+ lines(native.range, col="grey30", lwd=2) 
+ points(latitude ~ longitude, records.present, pch=16, cex=.5, col="white") # expanded native range
+ points(latitude ~ longitude, records.past, pch=16, cex=.5) # historic native range
+dev.off()
+
+# Save to QGIS for map formatting
+writeRaster(threshold.difference, "Results/thresholdFigS5.tif", format="GTiff")
 
 
 #### ====================== Model evaluation ======================================
@@ -483,15 +563,21 @@ CAmap.difference.minPres <- CAmap.raw.past.minPres + CAmap.raw.now.minPres # add
     # both models:       -1 + 2 = 1  
     # present model only: 0 + 2 = 2  
 
-# Figure 3c
-plot(CAmap.difference.minPres, col=c("grey90","grey50","grey70"), 
-     legend=F, main="Minimum presence projection")
-points(y ~ x, calflora.records, pch=16)
-legend(fill=c("grey50","grey70","grey90",NA), border=c(rep("black",3), NA), pch=c(NA,NA,NA,16),
-       legend=c("both","present only","neither","presences"), "bottomleft")
-USstates <- raster::getData('GADM', country='USA', level=1) 
-lines(USstates)
+# compute Multivariate Environmental Suitability Surfaces (MESS) to find nonanalog climates
+mess.CA.past <- mess(present.bioclim.CA[[predictors]], trainData.raw.past)
+mess.CA.present <- mess(present.bioclim.CA[[predictors]], trainData.raw.present)
 
+plot(mess.CA.present<0) # cells with MESS<0 will be considered nonanalog
+
+CAmap.difference.minPres[mess.CA.past<0] <- -2 # assign the value -2 to cells outside mess
+CAmap.difference.minPres[mess.CA.present<0] <- -2
+
+# Figure 3c
+plot(CAmap.difference.minPres, 
+     col=c("grey95", "#7bb1c7", "#cceefc", "#8ac7e0", "#9adef9"), # outside mess, past, neither, both, present
+     legend=F, main="")
+points(y ~ x, calflora.records, pch=16)
+lines(USstates)
 
 ### Australia ###
 
@@ -514,12 +600,20 @@ AUmap.raw.past.minPres[AUmap.raw.past.minPres>0] <- -1
 AUmap.raw.now.minPres[AUmap.raw.now.minPres>0] <- 2
 AUmap.difference.minPres <- AUmap.raw.past.minPres + AUmap.raw.now.minPres
 
+# compute MESS surfaces
+mess.AU.past <- mess(present.bioclim.AU[[predictors]], trainData.raw.past) # past training data, correspondence to present climate of Australia
+mess.AU.present <- mess(present.bioclim.AU[[predictors]], trainData.raw.present) # present training data, correspondence to present climate of Australia
+
+plot(mess.AU.past<0)  
+  lines(Australia)
+
+AUmap.difference.minPres[mess.AU.past<0] <- -2 # assign the value -2 to cells outside mess
+AUmap.difference.minPres[mess.AU.present<0] <- -2
+
 # Figure 3f
-plot(AUmap.difference.minPres, 
-     col=c("grey30","pink","orange","grey90", "green",
-           "red","grey50","yellow","purple","grey70"), 
-     main="Minimum presence projection")
+plot(crop(AUmap.difference.minPres, extAU), 
+     col=c("grey95", "#7bb1c7", "#cceefc", "#8ac7e0", "#9adef9"), # outside mess, past, neither, both, present
+     legend=F, main="")
 points(y ~ x, Australia.records,cex=.4, pch=16) # black outline for points
-legend(fill=c("grey30","grey50","grey70","grey90",NA), border=c(rep("black",4), NA), pch=c(NA,NA,NA,NA,16),
-       legend=c("past only","both","present only","neither","presences"), "bottomleft")
 lines(Australia, lwd=1.5)
+
